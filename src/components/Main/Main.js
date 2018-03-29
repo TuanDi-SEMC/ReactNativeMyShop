@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+// import { View, Text, Button } from 'react-native';
+import Drawer from 'react-native-drawer';
+import Menu from '../Main/Menu.js';
+import Shop from '../Main/Shop/Shop';
+
+//https://github.com/root-two/react-native-drawer
 
 export default class Main extends Component {
-
+    //Hide defaul navigation bar
+    static navigationOptions = { header: null }
     goToAuthenication() {
         const { navigate } = this.props.navigation;
         navigate('Authenication');
@@ -18,14 +24,23 @@ export default class Main extends Component {
         navigate('OrderHistory');
     }
 
+    closeControlPanel = () => {
+        this.drawer.close();
+    };
+    openControlPanel = () => {
+        this.drawer.open();
+    };
+
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: 'gray' }}>
-                <Text>Main Component</Text>
-                <Button onPress={this.goToAuthenication.bind(this)} title="go to Authenication" />
-                <Button onPress={this.goToChangeInfo.bind(this)} title="go to ChangeInfo" />
-                <Button onPress={this.goToOrderHistory.bind(this)} title="go to OrderHistory" />
-            </View>
+            <Drawer
+                ref={(ref) => (this.drawer = ref)}
+                content={<Menu navigation={this.props.navigation} />}
+                openDrawerOffset={0.4}
+                tapToClose
+            >
+                <Shop open={this.openControlPanel.bind(this)} />
+            </Drawer>
         );
     }
 }
