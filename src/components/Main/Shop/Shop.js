@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Cart from './Cart/Cart';
 import Contact from './Contact/Contact';
 import Home from './Home/Home';
 import Search from './Search/Search';
 import Header from './Header';
+
+import homeIcon from '../../../media/appIcon/home0.png';
+import homeIconS from '../../../media/appIcon/home.png';
+import cartIcon from '../../../media/appIcon/cart0.png';
+import cartIconS from '../../../media/appIcon/cart.png';
+import searchIcon from '../../../media/appIcon/search0.png';
+import searchIconS from '../../../media/appIcon/search.png';
+import contactIcon from '../../../media/appIcon/contact0.png';
+import contactIconS from '../../../media/appIcon/contact.png';
 
 //import TabNavigator from 'react-native-tab-navigator';
 //https://github.com/happypancake/react-native-tab-navigator
@@ -23,6 +32,7 @@ class Shop extends Component {
     }
 
     render() {
+        const { icon } = styles;
         return (
             <View style={{ flex: 1, }}>
                 <Header onOpen={this.openMenu.bind(this)} />
@@ -31,6 +41,10 @@ class Shop extends Component {
                         selected={this.state.selectedTab === 'home'}
                         title="Home"
                         onPress={() => this.setState({ selectedTab: 'home' })}
+                        renderIcon={() => <Image source={homeIcon} style={icon} />}
+                        renderSelectedIcon={() => <Image source={homeIconS} style={icon} />}
+                        badgeText="1"
+                        selectedTitleStyle={{ color: '#29BB9C' }}
                     >
                         {<Home />}
                     </TabNavigator.Item>
@@ -38,6 +52,9 @@ class Shop extends Component {
                         selected={this.state.selectedTab === 'cart'}
                         title="Cart"
                         onPress={() => this.setState({ selectedTab: 'cart' })}
+                        renderIcon={() => <Image source={cartIcon} style={icon} />}
+                        renderSelectedIcon={() => <Image source={cartIconS} style={icon} />}
+                        selectedTitleStyle={{ color: '#29BB9C' }}
                     >
                         {<Cart />}
                     </TabNavigator.Item>
@@ -45,6 +62,9 @@ class Shop extends Component {
                         selected={this.state.selectedTab === 'search'}
                         title="Search"
                         onPress={() => this.setState({ selectedTab: 'search' })}
+                        renderIcon={() => <Image source={searchIcon} style={icon} />}
+                        renderSelectedIcon={() => <Image source={searchIconS} style={icon} />}
+                        selectedTitleStyle={{ color: '#29BB9C' }}
                     >
                         {<Search />}
                     </TabNavigator.Item>
@@ -52,6 +72,9 @@ class Shop extends Component {
                         selected={this.state.selectedTab === 'contact'}
                         title="Contact"
                         onPress={() => this.setState({ selectedTab: 'contact' })}
+                        renderIcon={() => <Image source={contactIcon} style={icon} />}
+                        renderSelectedIcon={() => <Image source={contactIconS} style={icon} />}
+                        selectedTitleStyle={{ color: '#29BB9C' }}
                     >
                         {<Contact />}
                     </TabNavigator.Item>
@@ -62,3 +85,10 @@ class Shop extends Component {
 }
 
 export default Shop;
+
+const styles = StyleSheet.create({
+    icon: {
+        width: 20,
+        height: 20,
+    }
+});
