@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 
 class Menu extends Component {
 
@@ -19,15 +19,22 @@ class Menu extends Component {
     }
 
     render() {
+        const { wrapper } = styles;
         return (
-            <View style={{ flex: 1, backgroundColor: 'red' }}>
-               <Text>Menu Component</Text> 
-               <Button title='Go to Authenication' onPress={this.goToAuthenication.bind(this)} />
-               <Button title='Go to ChangeInfo' onPress={this.goToChangeInfo.bind(this)} />
-               <Button title='Go to Order History' onPress={this.goToOrderHistory.bind(this)} />
+            <View style={wrapper}>
+                <Button title='Go to Authenication' onPress={this.goToAuthenication.bind(this)} />
+                <Button title='Go to ChangeInfo' onPress={this.goToChangeInfo.bind(this)} />
+                <Button title='Go to Order History' onPress={this.goToOrderHistory.bind(this)} />
             </View>
         );
     }
 }
 
 export default Menu;
+
+const styles = StyleSheet.create({
+    wrapper: {
+        backgroundColor: '#29BB9C',
+    }
+});
+

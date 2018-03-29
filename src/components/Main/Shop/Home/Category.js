@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
         height: height * 0.3,
         backgroundColor: '#fff',
         margin: 10,
-        paddingRight: 10,
         padding: 10,
         shadowColor: '#333333',
         shadowOffset: { width: 10, height: 13 },
         shadowOpacity: 1,
+        elevation: 5,
     },
     image: {
         justifyContent: 'center',
