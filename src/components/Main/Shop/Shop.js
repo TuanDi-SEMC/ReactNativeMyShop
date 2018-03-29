@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { View, } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Cart from './Cart/Cart';
 import Contact from './Contact/Contact';
 import Home from './Home/Home';
 import Search from './Search/Search';
+import Header from './Header';
 
 //import TabNavigator from 'react-native-tab-navigator';
 //https://github.com/happypancake/react-native-tab-navigator
-const { height } = Dimensions.get('window');
-
 
 class Shop extends Component {
 
@@ -25,12 +24,8 @@ class Shop extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, height: height / 8 }}>
-                <View>
-                    <TouchableOpacity>
-                    <Text onPress={this.openMenu.bind(this)}>Open Menu</Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={{ flex: 1, }}>
+                <Header onOpen={this.openMenu.bind(this)} />
                 <TabNavigator>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'home'}
