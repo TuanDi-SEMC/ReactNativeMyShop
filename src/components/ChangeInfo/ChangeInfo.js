@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 
 export default class ChangeInfo extends Component {
+    static navigationOptions = { header: null }
 
     goBackToMain() {
         this.props.navigation.goBack();

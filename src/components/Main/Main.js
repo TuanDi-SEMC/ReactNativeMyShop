@@ -9,6 +9,13 @@ import Shop from '../Main/Shop/Shop';
 export default class Main extends Component {
     //Hide defaul navigation bar
     static navigationOptions = { header: null }
+    componentDidMount() {
+        this.drawer.open();
+    }
+    closeControlPanel = () => {
+        this.drawer.close();
+    };
+
     goToAuthenication() {
         const { navigate } = this.props.navigation;
         navigate('Authenication');
@@ -24,9 +31,6 @@ export default class Main extends Component {
         navigate('OrderHistory');
     }
 
-    closeControlPanel = () => {
-        this.drawer.close();
-    };
     openControlPanel = () => {
         this.drawer.open();
     };
