@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import CartView from './CartView';
+import ProductDetail from '../ProductDetail/ProductDetail';
+
+const RootStack = StackNavigator(
+    {
+        Home: {
+            screen: CartView,
+        },
+        ProductDetail: {
+            screen: ProductDetail,
+        },
+    },
+    {
+        initialRouteName: 'Home',
+    }
+);
 
 class Cart extends Component {
+    goToProductDetail() {
+        const { navigate } = this.props.navigation;
+        navigate('ProductDetail');
+    }
     render() {
-        const { wrapper } = styles;
         return (
-            <View style={wrapper}>
-            </View>
+            <RootStack />
         );
     }
 }
 
 export default Cart;
 
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        backgroundColor: '#E2E1DF',
-    }
-});

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Text, ImageBackground } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import littleIcon from '../../../../media/temp/little.jpg';
@@ -8,8 +8,15 @@ import midiIcon from '../../../../media/temp/midi.jpg';
 import miniIcon from '../../../../media/temp/mini.jpg';
 
 const { width, height } = Dimensions.get('window');
-
 class Category extends Component {
+
+    static navigationOptions = { header: null }
+
+    goToListProduct() {
+        const { navigate } = this.props.navigation;
+        navigate('ListProduct');
+    }
+
     render() {
         const { wrapper, image, title, content } = styles;
         return (
@@ -19,18 +26,26 @@ class Category extends Component {
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper>
-                        <ImageBackground source={littleIcon} style={image} >
-                            <Text style={content}>Little Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={maxiIcon} style={image} >
-                            <Text style={content}>Maxi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={midiIcon} style={image} >
-                            <Text style={content}>Midi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={miniIcon} style={image} >
-                            <Text style={content}>Mini Dress</Text>
-                        </ImageBackground>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <ImageBackground source={littleIcon} style={image} >
+                                <Text style={content}>Little Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <ImageBackground source={maxiIcon} style={image} >
+                                <Text style={content}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <ImageBackground source={midiIcon} style={image} >
+                                <Text style={content}>Midi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                            <ImageBackground source={miniIcon} style={image} >
+                                <Text style={content}>Mini Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
                     </Swiper></View>
             </View>
         );

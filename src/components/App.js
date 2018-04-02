@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Authenication from './Authenication/Authenication.js';
 import ChangeInfo from './ChangeInfo/ChangeInfo.js';

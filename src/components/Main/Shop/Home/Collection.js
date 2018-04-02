@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Text, Image } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, Image, TouchableOpacity } from 'react-native';
 import banner from '../../../../media/temp/banner.jpg';
 
 const { width, height } = Dimensions.get('window');
 
 class Collection extends Component {
+
+    goToListProduct() {
+        const { navigate } = this.props.navigation;
+        navigate('ListProduct');
+    }
+
     render() {
         const { wrapper, image, title } = styles;
         return (
             <View style={wrapper}>
                 <Text style={title} >SPRING COLLECTION</Text>
-                <Image source={banner} style={image} />
+                <TouchableOpacity style={image} onPress={this.goToListProduct.bind(this)}>
+                    <Image source={banner} />
+                </TouchableOpacity>
             </View>
         );
     }

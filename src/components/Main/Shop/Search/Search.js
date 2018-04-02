@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import ProductDetail from '../ProductDetail/ProductDetail';
+import SearchView from './SearchView';
+
+const RootStack = StackNavigator(
+    {
+        Home: {
+            screen: SearchView,
+        },
+        ProductDetail: {
+            screen: ProductDetail,
+        },
+    },
+    {
+        initialRouteName: 'Home',
+    }
+);
 
 class Search extends Component {
+    goToProductDetail() {
+        const { navigate } = this.props.navigation;
+        navigate('ProductDetail');
+    }
     render() {
-        const { wrapper } = styles;
         return (
-            <View style={wrapper}>
-            </View>
+            <RootStack />
         );
     }
 }
 
 export default Search;
 
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        backgroundColor: '#E2E1DF',
-    }
-});
