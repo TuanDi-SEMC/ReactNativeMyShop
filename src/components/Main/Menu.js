@@ -40,10 +40,10 @@ class Menu extends Component {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
                 <Text style={{ color: '#ffffff', fontSize: 16, flex: 1, fontWeight: 'bold' }}>Tang Minh Tuan</Text>
                 <View style={{ flex: 2.5 }}>
-                    <TouchableOpacity onPress={this.goToAuthenication.bind(this)} style={container}>
+                    <TouchableOpacity onPress={this.goToOrderHistory.bind(this)} style={container}>
                         <Text style={buttonSignInStyle}>Order History</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity onPress={this.goToAuthenication.bind(this)} style={container}>
+                    <TouchableOpacity onPress={this.goToChangeInfo.bind(this)} style={container}>
                         <Text style={buttonSignInStyle}>Change Info</Text>
                     </TouchableOpacity >
                     <TouchableOpacity onPress={this.goToAuthenication.bind(this)} style={container}>

@@ -9,7 +9,7 @@ import OrderHistory from './OrderHistory/OrderHistory.js';
 /*
 Hide status bar
 */
-StatusBar.setHidden(true);
+// StatusBar.setHidden(true);
 
 /*
 Home: sẽ là màn hình luôn chạy đầu tiên|func return <RootStack /navigate="KEY_COMPONENT">

@@ -27,9 +27,10 @@ const RootStack = StackNavigator(
 
 class Home extends Component {
     render() {
+        const { types } = this.props;
         const { wrapper } = styles;
         return (
-            <RootStack />
+            <RootStack types={types} />
         );
     }
 }

@@ -18,6 +18,7 @@ class Category extends Component {
     }
 
     render() {
+        const { types } = this.props;
         const { wrapper, image, title, content } = styles;
         return (
             <View style={wrapper}>
@@ -26,27 +27,15 @@ class Category extends Component {
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper>
-                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-                            <ImageBackground source={littleIcon} style={image} >
-                                <Text style={content}>Little Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-                            <ImageBackground source={maxiIcon} style={image} >
-                                <Text style={content}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-                            <ImageBackground source={midiIcon} style={image} >
-                                <Text style={content}>Midi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-                            <ImageBackground source={miniIcon} style={image} >
-                                <Text style={content}>Mini Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                    </Swiper></View>
+                        {types.map(e => (
+                            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
+                                <ImageBackground source={littleIcon} style={image} >
+                                    <Text style={content}>Little Dress</Text>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))}
+                    </Swiper>
+                </View>
             </View>
         );
     }
