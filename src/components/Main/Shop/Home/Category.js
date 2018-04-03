@@ -3,11 +3,9 @@ import { View, StyleSheet, Dimensions, Text, ImageBackground, TouchableOpacity }
 import Swiper from 'react-native-swiper';
 
 import littleIcon from '../../../../media/temp/little.jpg';
-import maxiIcon from '../../../../media/temp/maxi.jpg';
-import midiIcon from '../../../../media/temp/midi.jpg';
-import miniIcon from '../../../../media/temp/mini.jpg';
 
 const { width, height } = Dimensions.get('window');
+const url = 'http://192.168.50.111/api/images/type/';
 class Category extends Component {
 
     static navigationOptions = { header: null }
@@ -18,8 +16,8 @@ class Category extends Component {
     }
 
     render() {
-        const { types } = this.props;
         const { wrapper, image, title, content } = styles;
+        const { types } = this.props;
         return (
             <View style={wrapper}>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -28,9 +26,9 @@ class Category extends Component {
                 <View style={{ flex: 4 }}>
                     <Swiper>
                         {types.map(e => (
-                            <TouchableOpacity onPress={this.goToListProduct.bind(this)}>
-                                <ImageBackground source={littleIcon} style={image} >
-                                    <Text style={content}>Little Dress</Text>
+                            <TouchableOpacity onPress={this.goToListProduct.bind(this)} key={e.id}>
+                                <ImageBackground source={{ uri: `http://192.168.50.111/api/images/type/${e.image}` }} style={image} >
+                                    <Text style={content}>{e.name}</Text>
                                 </ImageBackground>
                             </TouchableOpacity>
                         ))}

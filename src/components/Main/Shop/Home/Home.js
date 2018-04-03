@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import HomeView from './HomeView';
 import ListProduct from '../ListProduct/ListProduct';
@@ -27,19 +26,10 @@ const RootStack = StackNavigator(
 
 class Home extends Component {
     render() {
-        const { types } = this.props;
-        const { wrapper } = styles;
         return (
-            <RootStack types={types} />
+            <RootStack />
         );
     }
 }
 
 export default Home;
-
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        backgroundColor: '#E2E1DF',
-    }
-});

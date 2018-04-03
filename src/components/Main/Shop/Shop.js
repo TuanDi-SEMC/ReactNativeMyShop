@@ -6,6 +6,7 @@ import Contact from './Contact/Contact';
 import Home from './Home/Home';
 import Search from './Search/Search';
 import Header from './Header';
+import HomeView from './Home/HomeView';
 
 import homeIcon from '../../../media/appIcon/home0.png';
 import homeIconS from '../../../media/appIcon/home.png';
@@ -25,29 +26,16 @@ class Shop extends Component {
         super(props);
         this.state = {
             selectedTab: 'home',
-            types: [],
         };
     }
 
-    componentDidMount() {
-        fetch('http://192.168.50.111/api/')
-            .then(res => res.json())
-            .then(resJSON => {
-                const { type } = resJSON;
-                this.setState({ types: type });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    openMenu() {
+        const { open } = this.props;
+        open();
     }
 
-    // openMenu() {
-    //     const { open } = this.props;
-    //     open();
-    // }
-
     render() {
-        const { types, selectedTab } = this.state;
+        const { selectedTab } = this.state;
         const { icon } = styles;
         return (
             <View style={{ flex: 1, }}>
@@ -59,10 +47,9 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'home' })}
                         renderIcon={() => <Image source={homeIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={homeIconS} style={icon} />}
-                        badgeText="1"
                         selectedTitleStyle={{ color: '#29BB9C' }}
                     >
-                        {<Home types={types} />}
+                        {<Home />}
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'cart'}
