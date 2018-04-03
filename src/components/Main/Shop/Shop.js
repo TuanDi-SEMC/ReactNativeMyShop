@@ -26,6 +26,7 @@ class Shop extends Component {
         super(props);
         this.state = {
             selectedTab: 'home',
+            cartArray: []
         };
     }
 
@@ -35,7 +36,7 @@ class Shop extends Component {
     }
 
     render() {
-        const { selectedTab } = this.state;
+        const { selectedTab, cartArray } = this.state;
         const { icon } = styles;
         return (
             <View style={{ flex: 1, }}>
@@ -58,8 +59,9 @@ class Shop extends Component {
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={icon} />}
                         selectedTitleStyle={{ color: '#29BB9C' }}
+                        badgeText={cartArray.length}
                     >
-                        {<Cart />}
+                        {<Cart cartArray={cartArray} />}
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'search'}

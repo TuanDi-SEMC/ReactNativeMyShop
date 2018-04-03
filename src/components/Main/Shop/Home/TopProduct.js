@@ -1,42 +1,37 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-import sql1 from '../../../../media/temp/sp1.jpeg';
-import sql2 from '../../../../media/temp/sp2.jpeg';
-import sql3 from '../../../../media/temp/sp3.jpeg';
-import sql4 from '../../../../media/temp/sp4.jpeg';
+import {
+    View, Text, StyleSheet, Image, Dimensions, TouchableOpacity,
+    FlatList
+} from 'react-native';
+
+const url = 'http://192.168.50.111/api/images/product/';
 
 class TopProduct extends Component {
-    goToProductDetail() {
+    goToProductDetail(item) {
         const { navigate } = this.props.navigation;
-        navigate('ProductDetail');
+        navigate('ProductDetail', item);
     }
 
     render() {
+        const { topProducts } = this.props;
         const { wrapper, body, productContainer, imageContainer, title, price, productName } = styles;
         return (
             <View style={wrapper}>
                 <Text style={title}>TOP PRODUCT</Text>
                 <View style={body}>
-                    <TouchableOpacity style={productContainer} onPress={this.goToProductDetail.bind(this)}>
-                        <Image source={sql1} style={imageContainer} />
-                        <Text style={productName}>Black of The</Text>
-                        <Text style={price}>96$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={productContainer} onPress={this.goToProductDetail.bind(this)}>
-                        <Image source={sql2} style={imageContainer} />
-                        <Text style={productName}>Black of The</Text>
-                        <Text style={price}>96$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={productContainer} onPress={this.goToProductDetail.bind(this)}>
-                        <Image source={sql3} style={imageContainer} />
-                        <Text style={productName}>Black of The</Text>
-                        <Text style={price}>96$</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={productContainer} onPress={this.goToProductDetail.bind(this)}>
-                        <Image source={sql4} style={imageContainer} />
-                        <Text style={productName}>Black of The</Text>
-                        <Text style={price}>96$</Text>
-                    </TouchableOpacity>
+                    <FlatList
+                        contentContainerStyle={styles.grid}
+                        numColumns={2}
+                        data={topProducts}
+                        renderItem={
+                            ({ item }) =>
+                                <TouchableOpacity style={productContainer} onPress={this.goToProductDetail.bind(this, item)}>
+                                    <Image source={{ uri: `${url}${item.images[0]}` }} style={imageContainer} />
+                                    <Text style={productName}>{item.name.toUpperCase()}</Text>
+                                    <Text style={price}>{item.price}$</Text>
+                                </TouchableOpacity>
+                        }
+                    />
                 </View>
             </View>
         );

@@ -12,11 +12,22 @@ export default class Authenication extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isSignIn: true };
+        this.state = {
+            isSignIn: true,
+            email: null,
+            password: null
+        };
     }
 
     goBackToMain() {
         this.props.navigation.goBack();
+    }
+
+    login = () => {
+        let email = this.state.email;
+        if (email == null) { ToastAndroid.show('Chưa nhập email', ToastAndroid.SHORT); }
+        let password = this.state.password;
+        if (password == null) { ToastAndroid.show('Chưa nhập password', ToastAndroid.SHORT); }
     }
     signIn() {
         this.setState({ isSignIn: true });
@@ -28,8 +39,8 @@ export default class Authenication extends Component {
     render() {
         const { row1, icon, title, signInStyle, wrapperButtonLeft, wrapperButton,
             wrapperButtonRight, textInput, textStyle, activeStyle, inactiveStyle } = styles;
-            const { isSignIn } = this.state;
-            const signUpJSX = (
+        const { isSignIn } = this.state;
+        const signUpJSX = (
             <View>
                 <TextInput
                     style={textInput}
@@ -42,6 +53,7 @@ export default class Authenication extends Component {
                     underlineColorAndroid='transparent'
                 />
                 <TextInput
+                    secureTextEntry={true}
                     style={textInput}
                     placeholder='Enter your password'
                     underlineColorAndroid='transparent'
@@ -50,6 +62,7 @@ export default class Authenication extends Component {
                     style={textInput}
                     placeholder='Re-enter your password'
                     underlineColorAndroid='transparent'
+                    secureTextEntry={true}
                 />
                 <TouchableOpacity onPress={this.props.onOpen} style={wrapperButton}>
                     <Text style={textStyle}>SIGN UP NOW</Text>
@@ -62,13 +75,16 @@ export default class Authenication extends Component {
                     style={textInput}
                     placeholder='Enter your email'
                     underlineColorAndroid='transparent'
+                    onChangeText={(email) => this.setState({ email })}
                 />
                 <TextInput
                     style={textInput}
+                    secureTextEntry={true}
                     placeholder='Enter your password'
                     underlineColorAndroid='transparent'
+                    onChangeText={(password) => this.setState({ password })}
                 />
-                <TouchableOpacity onPress={this.props.onOpen} style={wrapperButton}>
+                <TouchableOpacity onPress={this.login} style={wrapperButton}>
                     <Text style={textStyle}>SIGN IN NOW</Text>
                 </TouchableOpacity>
             </View>
@@ -107,6 +123,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         paddingLeft: 20,
         paddingRight: 20,
+        fontSize: 16,
     },
     wrapper: {
         padding: 10,

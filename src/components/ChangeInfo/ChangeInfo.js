@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import {
     View, TouchableOpacity, Text, Image, StyleSheet, TextInput
 } from 'react-native';
-import backSpecial from '../../media/appIcon/backs.png';
+import backSpecial from '../../media/appIcon/back_white.png';
 
 export default class ChangeInfo extends Component {
     static navigationOptions = { header: null }
     constructor(props) {
         super(props);
-        this.state = { 
-            txtName: 'Tang Minh Tuan', 
-            txtAddress: 'Thanh Tri, Ha Noi', 
-            txtPhone: '01694472176' 
+        this.state = {
+            txtName: 'Tang Minh Tuan',
+            txtAddress: 'Thanh Tri, Ha Noi',
+            txtPhone: '01694472176'
         };
     }
     goBackToMain() {
@@ -27,11 +27,11 @@ export default class ChangeInfo extends Component {
         return (
             <View style={wrapper}>
                 <View style={header}>
-                    <View />
-                    <Text style={headerTitle}>User Infomation</Text>
                     <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
                         <Image source={backSpecial} style={backIconStyle} />
                     </TouchableOpacity>
+                    <Text style={headerTitle}>User Infomation</Text>
+                    <View />
                 </View>
                 <View style={body}>
                     <TextInput

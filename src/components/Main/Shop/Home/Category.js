@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import littleIcon from '../../../../media/temp/little.jpg';
-
 const { width, height } = Dimensions.get('window');
 const url = 'http://192.168.50.111/api/images/type/';
 class Category extends Component {
@@ -27,7 +25,7 @@ class Category extends Component {
                     <Swiper>
                         {types.map(e => (
                             <TouchableOpacity onPress={this.goToListProduct.bind(this)} key={e.id}>
-                                <ImageBackground source={{ uri: `http://192.168.50.111/api/images/type/${e.image}` }} style={image} >
+                                <ImageBackground source={{ uri: `${url}${e.image}` }} style={image} >
                                     <Text style={content}>{e.name}</Text>
                                 </ImageBackground>
                             </TouchableOpacity>

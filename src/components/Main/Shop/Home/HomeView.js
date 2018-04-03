@@ -12,15 +12,18 @@ class HomeView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { types: [] };
+        this.state = {
+            types: [],
+            topProducts: [],
+        };
     }
 
     componentDidMount() {
         fetch('http://192.168.50.111/api/')
             .then(res => res.json())
             .then(resJSON => {
-                const { type } = resJSON;
-                this.setState({ types: type });
+                const { type, product } = resJSON;
+                this.setState({ types: type, topProducts: product });
             })
             .catch((error) => {
                 console.error(error);
@@ -29,12 +32,12 @@ class HomeView extends Component {
 
     render() {
         const { wrapper } = styles;
-        const { types } = this.state;
+        const { types, topProducts } = this.state;
         return (
             <ScrollView style={wrapper}>
                 <Collection navigation={this.props.navigation} />
                 <Category navigation={this.props.navigation} types={types} />
-                <TopProduct navigation={this.props.navigation} />
+                <TopProduct navigation={this.props.navigation} topProducts={topProducts} />
             </ScrollView>
         );
     }

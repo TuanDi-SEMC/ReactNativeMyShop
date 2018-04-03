@@ -11,6 +11,7 @@ function toTitleCase(str) {
 }
 
 class SearchView extends Component {
+    static navigationOptions = { header: null }
     gotoDetail() {
         const { navigator } = this.props;
         navigator.push({ name: 'PRODUCT_DETAIL' });

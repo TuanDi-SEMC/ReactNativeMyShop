@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, ScrollView
 } from 'react-native';
-import backSpecial from '../../media/appIcon/backs.png';
+import backSpecial from '../../media/appIcon/back_white.png';
 // import getOrderHistory from '../../api/getOrderHistory';
 // import getToken from '../../api/getToken';
 
@@ -28,33 +28,33 @@ export default class OrderHistory extends Component {
         return (
             <View style={wrapper}>
                 <View style={header}>
-                    <View />
-                    <Text style={headerTitle}>Order History</Text>
                     <TouchableOpacity onPress={this.goBackToMain.bind(this)}>
                         <Image source={backSpecial} style={backIconStyle} />
                     </TouchableOpacity>
+                    <Text style={headerTitle}>Order History</Text>
+                    <View />
                 </View>
                 <View style={body}>
                     <ScrollView>
                         {/* { this.state.arrOrder.map(e => ( */}
-                            <View style={orderRow}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
-                                    <Text style={{ color: '#2ABB9C' }}>001</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
-                                    <Text style={{ color: '#C21C70' }}>20.20.2020</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
-                                    <Text style={{ color: '#2ABB9C' }}>pending</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
-                                    <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
-                                </View>
+                        <View style={orderRow}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Order id:</Text>
+                                <Text style={{ color: '#2ABB9C' }}>001</Text>
                             </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>OrderTime:</Text>
+                                <Text style={{ color: '#C21C70' }}>20.20.2020</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Status:</Text>
+                                <Text style={{ color: '#2ABB9C' }}>pending</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={{ color: '#9A9A9A', fontWeight: 'bold' }}>Total:</Text>
+                                <Text style={{ color: '#C21C70', fontWeight: 'bold' }}>100$</Text>
+                            </View>
+                        </View>
                         {/* )) } */}
                     </ScrollView>
                 </View>

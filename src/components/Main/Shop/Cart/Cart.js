@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { } from 'react-native';
+import { Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import CartView from './CartView';
 import ProductDetail from '../ProductDetail/ProductDetail';
@@ -24,6 +24,7 @@ class Cart extends Component {
         navigate('ProductDetail');
     }
     render() {
+        const { cartArray } = this.props;
         return (
             <RootStack />
         );
