@@ -43,7 +43,7 @@ class Shop extends Component {
 
     render() {
         const { selectedTab, cartArray } = this.state;
-        const { icon } = styles;
+        const { icon, selectedIcon } = styles;
         return (
             <View style={{ flex: 1, }}>
                 <Header onOpen={this.openMenu.bind(this)} />
@@ -53,7 +53,7 @@ class Shop extends Component {
                         title="Home"
                         onPress={() => this.setState({ selectedTab: 'home' })}
                         renderIcon={() => <Image source={homeIcon} style={icon} />}
-                        renderSelectedIcon={() => <Image source={homeIconS} style={icon} />}
+                        renderSelectedIcon={() => <Image source={homeIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
                     >
                         {<Home />}
@@ -63,7 +63,7 @@ class Shop extends Component {
                         title="Cart"
                         onPress={() => this.setState({ selectedTab: 'cart' })}
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
-                        renderSelectedIcon={() => <Image source={cartIconS} style={icon} />}
+                        renderSelectedIcon={() => <Image source={cartIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
                         badgeText={cartArray.length}
                     >
@@ -74,7 +74,7 @@ class Shop extends Component {
                         title="Search"
                         onPress={() => this.setState({ selectedTab: 'search' })}
                         renderIcon={() => <Image source={searchIcon} style={icon} />}
-                        renderSelectedIcon={() => <Image source={searchIconS} style={icon} />}
+                        renderSelectedIcon={() => <Image source={searchIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
                     >
                         {<Search />}
@@ -84,7 +84,7 @@ class Shop extends Component {
                         title="Contact"
                         onPress={() => this.setState({ selectedTab: 'contact' })}
                         renderIcon={() => <Image source={contactIcon} style={icon} />}
-                        renderSelectedIcon={() => <Image source={contactIconS} style={icon} />}
+                        renderSelectedIcon={() => <Image source={contactIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
                     >
                         {<Contact />}
@@ -99,6 +99,11 @@ export default Shop;
 
 const styles = StyleSheet.create({
     icon: {
+        width: 20,
+        height: 20,
+        tintColor: '#9e9e9e'
+    },
+    selectedIcon: {
         width: 20,
         height: 20,
         tintColor: '#286728'

@@ -41,6 +41,7 @@ export default class Main extends Component {
                 ref={(ref) => (this.drawer = ref)}
                 content={<Menu navigation={this.props.navigation} />}
                 openDrawerOffset={0.4}
+                panOpenMask={0.4}
                 tapToClose
             >
                 <Shop open={this.openControlPanel.bind(this)} />

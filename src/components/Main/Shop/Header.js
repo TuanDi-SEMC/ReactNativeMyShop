@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    View, Text, TouchableOpacity, Dimensions, Image, TextInput, StyleSheet
+    View, Text, TouchableOpacity, Dimensions, Image, TextInput, StyleSheet, Alert
 } from 'react-native';
 
 import icLogo from '../../../media/appIcon/ic_logo.png';
@@ -9,6 +9,22 @@ import icMenu from '../../../media/appIcon/ic_menu.png';
 const { height } = Dimensions.get('window');
 
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            txtSearch: ''
+        };
+    }
+
+    onSearch() {
+        const { txtSearch } = this.state;
+        // this.setState({ txtSearch: '' });
+        // search(txtSearch)
+        //     .then(arrProduct => global.setArraySearch(arrProduct))
+        //     .catch(err => console.log(err));
+        Alert.alert(txtSearch);
+    }
     render() {
         const { wrapper, row1, textInput, icon, title } = styles;
         return (
@@ -23,7 +39,10 @@ class Header extends Component {
                 <TextInput
                     style={textInput}
                     placeholder='What do you want to buy?'
+                    value={this.state.txtSearch}
+                    onChangeText={text => this.setState({ txtSearch: text })}
                     underlineColorAndroid='transparent'
+                    onSubmitEditing={this.onSearch.bind(this)}
                 />
             </View>
         );

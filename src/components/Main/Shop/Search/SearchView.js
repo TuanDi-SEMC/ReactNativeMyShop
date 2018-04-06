@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions
+    StyleSheet, Text, TouchableOpacity, ListView, View, Image, Dimensions, Alert, FlatList
 } from 'react-native';
 
-import sp1 from '../../../../media/temp/sp3.jpeg';
-import sp4 from '../../../../media/temp/sp4.jpeg';
+import { searchProduct } from '../../../../networking/Server';
+
+const url = 'http://192.168.50.111/api/images/product/';
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -12,130 +13,97 @@ function toTitleCase(str) {
 
 class SearchView extends Component {
     static navigationOptions = { header: null }
-    gotoDetail() {
-        const { navigator } = this.props;
-        navigator.push({ name: 'PRODUCT_DETAIL' });
+
+    constructor(props) {
+        super(props);
+        this.state = { listProduct: [] };
     }
 
-    goToProductDetail() {
+    componentDidMount() {
+        searchProduct('floral').then((data) => {
+            this.setState({ listProduct: data });
+        }).catch((error) => {
+            Alert.alert(error.toString());
+        });
+    }
+
+    goToProductDetail(item) {
         const { navigate } = this.props.navigation;
-        navigate('ProductDetail');
+        navigate('ProductDetail', item);
     }
 
     render() {
-        const {
-            product, mainRight, txtMaterial, txtColor,
-            txtName, txtPrice, productImage,
-            txtShowDetail, showDetailContainer, wrapper
-        } = styles;
+        const { wrapper, productContainer, imageContainer, nameProduct,
+            productDesciption, priceProduct, materialProduct, colorProduct } = styles;
         return (
-            <ScrollView style={wrapper}>
-                <Text>{JSON.stringify(this.props)}</Text>
-                {/* <View style={product}>
-                    <Image source={sp1} style={productImage} />
-                    <View style={mainRight}>
-                        <Text style={txtName}>{toTitleCase('black dress')}</Text>
-                        <Text style={txtPrice}>100$</Text>
-                        <Text style={txtMaterial}>Material Fur</Text>
-                        <View style={{ flexDirection: 'row' }} >
-                            <Text style={txtColor}>Color white</Text>
-                            <View
-                                style={{
-                                    height: 15,
-                                    width: 15,
-                                    backgroundColor: 'white',
-                                    borderRadius: 15,
-                                    marginLeft: 10
-                                }}
-                            />
-                        </View>
-                        <TouchableOpacity style={showDetailContainer} onPress={this.goToProductDetail.bind(this)}>
-                            <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
-            </ScrollView>
+            <View style={wrapper}>
+                <FlatList
+                    data={this.state.listProduct}
+                    renderItem={
+                        ({ item }) =>
+                            <TouchableOpacity onPress={this.goToProductDetail.bind(this, item)}>
+                                <View style={productContainer}>
+                                    <Image source={{ uri: `${url}${item.images[0]}` }} style={imageContainer} />
+                                    <View style={productDesciption}>
+                                        <Text style={nameProduct}>{toTitleCase(item.name)}</Text>
+                                        <Text style={priceProduct}>{item.price}$</Text>
+                                        <Text style={materialProduct}>{item.material}</Text>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Text style={colorProduct}>Color </Text>
+                                            <Text style={colorProduct}>{item.color}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                    }
+                />
+            </View>
         );
     }
 }
 
+
 const { width } = Dimensions.get('window');
-const imageWidth = width / 4;
-const imageHeight = (imageWidth * 452) / 361;
+const widthImage = (width - 60) / 2;
+const heightImage = (widthImage / 361) * 452;
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: '#F6F6F6',
-        flex: 1
-    },
-    product: {
-        flexDirection: 'row',
-        margin: 10,
+        flex: 1,
         padding: 10,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 2,
-        shadowColor: '#3B5458',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.2
+        backgroundColor: '#E2E1DF',
     },
-    productImage: {
-        width: imageWidth,
-        height: imageHeight,
-        flex: 1,
-        resizeMode: 'center'
-    },
-    mainRight: {
-        flex: 3,
-        justifyContent: 'space-between'
-    },
-    productController: {
-        flexDirection: 'row'
-    },
-    numberOfProduct: {
-        flex: 1,
+    productContainer: {
+        backgroundColor: '#fff',
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        elevation: 5,
+        padding: 5,
+        width: '100%',
+        marginBottom: 10,
+        height: 120,
     },
-    txtName: {
-        paddingLeft: 20,
-        color: '#A7A7A7',
-        fontSize: 20,
-        fontWeight: '400',
-        fontFamily: 'Avenir'
+    imageContainer: {
+        height: '100%',
+        width: 100,
+        resizeMode: 'contain',
     },
-    txtPrice: {
-        paddingLeft: 20,
-        color: '#C21C70',
+    nameProduct: {
+        fontSize: 16,
+    },
+    productDesciption: {
+        paddingLeft: 10,
+        justifyContent: 'space-between',
+    },
+    priceProduct: {
+        fontSize: 16,
+        color: '#C72C78',
+        fontWeight: 'bold',
+    },
+    materialProduct: {
         fontSize: 15,
-        fontWeight: '400',
-        fontFamily: 'Avenir'
     },
-    txtColor: {
-        paddingLeft: 20,
-        color: 'black',
+    colorProduct: {
         fontSize: 15,
-        fontWeight: '400',
-        fontFamily: 'Avenir'
-    },
-    txtMaterial: {
-        paddingLeft: 20,
-        color: 'black',
-        fontSize: 15,
-        fontWeight: '400',
-        fontFamily: 'Avenir'
-    },
-    txtShowDetail: {
-        color: '#C21C70',
-        fontSize: 10,
-        fontWeight: '400',
-        fontFamily: 'Avenir',
-        textAlign: 'right',
-    },
-    showDetailContainer: {
-        flexDirection: 'row',
-        position: 'absolute',
-        alignSelf: 'flex-end',
-        marginTop: 100
     }
 });
 

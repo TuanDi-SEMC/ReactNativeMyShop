@@ -31,7 +31,7 @@ export default class ProductDetail extends Component {
             <View style={wrapper}>
                 <View style={cardStyle}>
                     <View style={header}>
-                        <TouchableOpacity onPress={this.goBackMain.bind(this)}>
+                        <TouchableOpacity onPress={this.goBackMain.bind(this)}>  
                             <Image style={backStyle} source={back} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.addThisProductToCart.bind(this)}>
