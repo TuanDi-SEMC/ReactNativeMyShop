@@ -19,10 +19,6 @@ const RootStack = StackNavigator(
 );
 
 class Search extends Component {
-    goToProductDetail() {
-        const { navigate } = this.props.navigation;
-        navigate('ProductDetail');
-    }
     render() {
         return (
             <RootStack />

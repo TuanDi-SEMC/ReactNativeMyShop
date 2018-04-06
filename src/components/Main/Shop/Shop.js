@@ -26,13 +26,19 @@ class Shop extends Component {
         super(props);
         this.state = {
             selectedTab: 'home',
-            cartArray: []
+            cartArray: [0, 1, 2, 3]
         };
     }
 
     openMenu() {
         const { open } = this.props;
         open();
+    }
+
+    _setCartArray(newCartArray) {
+        this.setState({
+            cartArray: newCartArray
+        });
     }
 
     render() {
@@ -48,7 +54,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'home' })}
                         renderIcon={() => <Image source={homeIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={homeIconS} style={icon} />}
-                        selectedTitleStyle={{ color: '#29BB9C' }}
+                        selectedTitleStyle={{ color: '#286728' }}
                     >
                         {<Home />}
                     </TabNavigator.Item>
@@ -58,7 +64,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'cart' })}
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={icon} />}
-                        selectedTitleStyle={{ color: '#29BB9C' }}
+                        selectedTitleStyle={{ color: '#286728' }}
                         badgeText={cartArray.length}
                     >
                         {<Cart cartArray={cartArray} />}
@@ -69,7 +75,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'search' })}
                         renderIcon={() => <Image source={searchIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={searchIconS} style={icon} />}
-                        selectedTitleStyle={{ color: '#29BB9C' }}
+                        selectedTitleStyle={{ color: '#286728' }}
                     >
                         {<Search />}
                     </TabNavigator.Item>
@@ -79,7 +85,7 @@ class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'contact' })}
                         renderIcon={() => <Image source={contactIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={contactIconS} style={icon} />}
-                        selectedTitleStyle={{ color: '#29BB9C' }}
+                        selectedTitleStyle={{ color: '#286728' }}
                     >
                         {<Contact />}
                     </TabNavigator.Item>
@@ -95,5 +101,6 @@ const styles = StyleSheet.create({
     icon: {
         width: 20,
         height: 20,
+        tintColor: '#286728'
     }
 });

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Alert } from 'react-native';
 // import Collection from './Collection';
 // import Category from './Category';
 import TopProduct from './TopProduct';
 import Collection from './Collection';
 import Category from './Category';
+import { getIndex } from '../../../../networking/Server';
 
 class HomeView extends Component {
 
@@ -19,15 +20,12 @@ class HomeView extends Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.50.111/api/')
-            .then(res => res.json())
-            .then(resJSON => {
-                const { type, product } = resJSON;
-                this.setState({ types: type, topProducts: product });
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        getIndex().then((data) => {
+            const { type, product } = data;
+            this.setState({ types: type, topProducts: product });
+        }).catch((error) => {
+            Alert.alert(error.toString());
+        });
     }
 
     render() {

@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRightWidth: 5,
         borderRightColor: '#ffffff',
-        backgroundColor: '#29BB9C',
+        backgroundColor: '#286728',
         alignItems: 'center',
     },
     imageStyle: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         fontSize: 16,
-        color: '#29BB9C',
+        color: '#286728',
     },
     container: {
         height: 48,

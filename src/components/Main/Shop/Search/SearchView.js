@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { 
-    StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions 
+import {
+    StyleSheet, Text, TouchableOpacity, ScrollView, View, Image, Dimensions
 } from 'react-native';
 
 import sp1 from '../../../../media/temp/sp3.jpeg';
@@ -16,6 +16,12 @@ class SearchView extends Component {
         const { navigator } = this.props;
         navigator.push({ name: 'PRODUCT_DETAIL' });
     }
+
+    goToProductDetail() {
+        const { navigate } = this.props.navigation;
+        navigate('ProductDetail');
+    }
+
     render() {
         const {
             product, mainRight, txtMaterial, txtColor,
@@ -24,7 +30,8 @@ class SearchView extends Component {
         } = styles;
         return (
             <ScrollView style={wrapper}>
-                <View style={product}>
+                <Text>{JSON.stringify(this.props)}</Text>
+                {/* <View style={product}>
                     <Image source={sp1} style={productImage} />
                     <View style={mainRight}>
                         <Text style={txtName}>{toTitleCase('black dress')}</Text>
@@ -42,37 +49,11 @@ class SearchView extends Component {
                                 }}
                             />
                         </View>
-                        <TouchableOpacity style={showDetailContainer}>
+                        <TouchableOpacity style={showDetailContainer} onPress={this.goToProductDetail.bind(this)}>
                             <Text style={txtShowDetail}>SHOW DETAILS</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-                <View style={product}>
-                    <Image source={sp4} style={productImage} />
-                    <View style={mainRight}>
-                        <Text style={txtName}>{toTitleCase('black dress')}</Text>
-                        <Text style={txtPrice}>100$</Text>
-                        <Text style={txtMaterial}>Material Fur</Text>
-                        <View style={{ flexDirection: 'row' }} >
-                            <Text style={txtColor}>Color white</Text>
-                            <View style={{ flexDirection: 'row' }} >
-                                <Text style={txtColor}>Color white</Text>
-                                <View
-                                    style={{
-                                        height: 15,
-                                        width: 15,
-                                        backgroundColor: 'white',
-                                        borderRadius: 15,
-                                        marginLeft: 10
-                                    }}
-                                />
-                            </View>
-                        </View>
-                        <TouchableOpacity style={showDetailContainer}>
-                            <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                </View> */}
             </ScrollView>
         );
     }

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     wrapper: {
         padding: 10,
         height: height / 8,
-        backgroundColor: '#29BB9C',
+        backgroundColor: '#286728',
         justifyContent: 'space-around'
     },
     row1: {

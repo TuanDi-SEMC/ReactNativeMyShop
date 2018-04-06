@@ -12,8 +12,8 @@ function toTitleCase(str) {
 class CartView extends Component {
     static navigationOptions = { header: null }
     gotoDetail() {
-        const { navigator } = this.props;
-        navigator.push({ name: 'PRODUCT_DETAIL' });
+        const { navigate } = this.props.navigation;
+        navigate('PRODUCT_DETAIL');
     }
 
     render() {
@@ -21,7 +21,7 @@ class CartView extends Component {
             product, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct,
             txtShowDetail, showDetailContainer } = styles;
-        const cartArray = [1, 2, 3, 4, 5];
+        const cartArray = this.props.screenProps;
         return (
             <View style={wrapper}>
                 <ScrollView style={main}>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         height: 50,
         margin: 10,
         marginTop: 0,
-        backgroundColor: '#2ABB9C',
+        backgroundColor: '#286728',
         borderRadius: 2,
         alignItems: 'center',
         justifyContent: 'center'
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 15,
         fontWeight: 'bold',
-        fontFamily: 'Avenir'
     },
     product: {
         flexDirection: 'row',
@@ -137,7 +136,6 @@ const styles = StyleSheet.create({
         color: '#C21C70',
         fontSize: 10,
         fontWeight: '400',
-        fontFamily: 'Avenir',
         textAlign: 'right',
     },
     showDetailContainer: {

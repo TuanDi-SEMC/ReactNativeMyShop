@@ -6,6 +6,9 @@ import ProductDetail from '../ProductDetail/ProductDetail';
 
 const RootStack = StackNavigator(
     {
+        // Home: {
+        //     screen: (props) => <CartView {...props.navigation.state.params} cartArray={[1, 1, 1]} />
+        // },
         Home: {
             screen: CartView,
         },
@@ -15,10 +18,17 @@ const RootStack = StackNavigator(
     },
     {
         initialRouteName: 'Home',
+    },
+    {
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        }
     }
 );
 
 class Cart extends Component {
+
     goToProductDetail() {
         const { navigate } = this.props.navigation;
         navigate('ProductDetail');
@@ -26,7 +36,7 @@ class Cart extends Component {
     render() {
         const { cartArray } = this.props;
         return (
-            <RootStack />
+            <RootStack screenProps={this.props.cartArray} />
         );
     }
 }

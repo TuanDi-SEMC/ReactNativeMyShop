@@ -16,26 +16,26 @@ class Contact extends Component {
         return (
             <View style={wrapper}>
                 <View style={mapContainer}>
-                    <Image 
-                        style={{ flex: 1, alignSelf: 'stretch', width: undefined }} source={map} 
+                    <Image
+                        style={{ flex: 1, alignSelf: 'stretch', width: undefined }} source={map}
                     />
                 </View>
                 <View style={infoContainer}>
                     <View style={rowInfoContainer}>
                         <Image source={locationIcon} style={imageStyle} />
-                        <Text style={infoText}>90 Le Thi Rieng/ Ben Thanh Dist</Text>
+                        <Text style={infoText}>Me Tri Dist</Text>
                     </View>
                     <View style={rowInfoContainer}>
                         <Image source={phoneIcon} style={imageStyle} />
-                        <Text style={infoText}>(+84) 01694472176</Text>
+                        <Text style={infoText}>(+84) 24444444444</Text>
                     </View>
                     <View style={rowInfoContainer}>
                         <Image source={mailIcon} style={imageStyle} />
-                        <Text style={infoText}>khoaphamtraining@gmail.com</Text>
+                        <Text style={infoText}>tuantm@mpsoftware.com.vn</Text>
                     </View>
                     <View style={[rowInfoContainer, { borderBottomWidth: 0 }]}>
                         <Image source={messageIcon} style={imageStyle} />
-                        <Text style={infoText}>(+84) 09877067707</Text>
+                        <Text style={infoText}>(+84) 9876543210</Text>
                     </View>
                 </View>
             </View>
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     },
     imageStyle: {
         width: 30,
-        height: 30
+        height: 30,
+        tintColor: '#286728'
     },
     infoText: {
         fontFamily: 'Avenir',
