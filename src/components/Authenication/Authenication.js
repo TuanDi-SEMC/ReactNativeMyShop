@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, TextInput, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, TextInput, ToastAndroid, Alert } from 'react-native';
 import icLogo from '../../media/appIcon/ic_logo.png';
 import icBack from '../../media/appIcon/back_white.png';
+
+import { signIn } from '../../networking/Server';
 
 const { width, height } = Dimensions.get('window');
 const buttonWidth = (width / 2) - 10;
@@ -28,6 +30,13 @@ export default class Authenication extends Component {
         if (email == null) { ToastAndroid.show('Chưa nhập email', ToastAndroid.SHORT); }
         let password = this.state.password;
         if (password == null) { ToastAndroid.show('Chưa nhập password', ToastAndroid.SHORT); }
+
+        signIn(email, password)
+            .then((data) => {
+                Alert.alert(JSON.stringify(data));
+            }).catch((error) => {
+                Alert.alert(error.toString());
+            });
     }
     signIn() {
         this.setState({ isSignIn: true });
@@ -91,7 +100,7 @@ export default class Authenication extends Component {
         );
         const mainJSX = isSignIn ? signInJSX : signUpJSX;
         return (
-            <View style={{ flex: 1, backgroundColor: '#29BB9C', padding: 10, justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, backgroundColor: '#286728', padding: 10, justifyContent: 'space-between' }}>
                 <View style={row1}>
                     <TouchableOpacity onPress={this.goBackToMain.bind(this)} >
                         <Image source={icBack} style={icon} />
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
     wrapper: {
         padding: 10,
         height: (height / 8),
-        backgroundColor: '#29BB9C',
+        backgroundColor: '#286728',
         justifyContent: 'space-around',
     },
     row1: {
@@ -148,11 +157,11 @@ const styles = StyleSheet.create({
     },
     signInStyle: {
         fontSize: 16,
-        color: '#29BB9C',
+        color: '#286728',
     },
     activeStyle: {
         fontSize: 16,
-        color: '#29BB9C',
+        color: '#286728',
     },
     inactiveStyle: {
         fontSize: 16,
@@ -160,7 +169,7 @@ const styles = StyleSheet.create({
     },
     signUpStyle: {
         fontSize: 16,
-        color: '#29BB9C',
+        color: '#286728',
     },
     wrapperButtonRight: {
         justifyContent: 'center',

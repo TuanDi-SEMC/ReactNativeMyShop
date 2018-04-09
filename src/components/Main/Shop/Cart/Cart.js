@@ -34,9 +34,8 @@ class Cart extends Component {
         navigate('ProductDetail');
     }
     render() {
-        const { cartArray } = this.props;
         return (
-            <RootStack screenProps={this.props.cartArray} />
+            <RootStack />
         );
     }
 }

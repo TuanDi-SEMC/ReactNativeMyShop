@@ -41,6 +41,26 @@ async function searchProduct(key) {
     }
 }
 
+async function signIn(email, password) {
+    const apiSignIn = `http://192.168.50.111/api/login.php`;
+    try {
+        let response = await fetch(apiSignIn, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+        let responseJson = await response.json();
+        return responseJson;
+    } catch (error) {
+        Alert.alert(error);
+    }
+} 
+
+export { signIn };
+
 export { searchProduct };
 
 export { getIndex };

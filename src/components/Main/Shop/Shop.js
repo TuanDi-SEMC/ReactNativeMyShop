@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
+import { connect } from 'react-redux';
 import Cart from './Cart/Cart';
 import Contact from './Contact/Contact';
 import Home from './Home/Home';
@@ -26,7 +27,6 @@ class Shop extends Component {
         super(props);
         this.state = {
             selectedTab: 'home',
-            cartArray: [0, 1, 2, 3]
         };
     }
 
@@ -42,7 +42,7 @@ class Shop extends Component {
     }
 
     render() {
-        const { selectedTab, cartArray } = this.state;
+        const { selectedTab } = this.state;
         const { icon, selectedIcon } = styles;
         return (
             <View style={{ flex: 1, }}>
@@ -65,9 +65,9 @@ class Shop extends Component {
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
-                        badgeText={cartArray.length}
+                        badgeText={this.props.myCart.length}
                     >
-                        {<Cart cartArray={cartArray} />}
+                        {<Cart />}
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'search'}
@@ -94,8 +94,10 @@ class Shop extends Component {
         );
     }
 }
-
-export default Shop;
+function mapStateToProps(state) {
+    return { myCart: state.cart };
+}
+export default connect(mapStateToProps)(Shop);
 
 const styles = StyleSheet.create({
     icon: {

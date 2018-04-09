@@ -3,6 +3,10 @@ import {
     View, Text, TouchableOpacity, ScrollView,
     Dimensions, StyleSheet, Image
 } from 'react-native';
+
+import { connect } from 'react-redux';
+import { getCart } from '../../../../networking/GetCart';
+
 import sp1 from '../../../../media/temp/sp1.jpeg';
 
 function toTitleCase(str) {
@@ -11,9 +15,17 @@ function toTitleCase(str) {
 
 class CartView extends Component {
     static navigationOptions = { header: null }
-    gotoDetail() {
-        const { navigate } = this.props.navigation;
-        navigate('PRODUCT_DETAIL');
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            total: 0,
+            cartArray: [],
+        };
+    }
+
+    componentDidMount() {
+        getCart().then(cartArray => this.setState({ cartArray }));
     }
 
     render() {
@@ -21,7 +33,7 @@ class CartView extends Component {
             product, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct,
             txtShowDetail, showDetailContainer } = styles;
-        const cartArray = this.props.screenProps;
+        const cartArray = this.state.cartArray;
         return (
             <View style={wrapper}>
                 <ScrollView style={main}>
@@ -57,7 +69,7 @@ class CartView extends Component {
                     ))}
                 </ScrollView>
                 <TouchableOpacity style={checkoutButton}>
-                    <Text style={checkoutTitle}>TOTAL {1000}$ CHECKOUT NOW</Text>
+                    <Text style={checkoutTitle}>TOTAL {this.state.total}$ CHECKOUT NOW</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -145,4 +157,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CartView;
+function mapStateToProps(state) {
+    return { myCart: state.cart };
+}
+
+export default connect(mapStateToProps)(CartView);
