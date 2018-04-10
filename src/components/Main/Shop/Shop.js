@@ -42,7 +42,7 @@ class Shop extends Component {
     }
 
     componentWillMount() {
-        
+
     }
 
     render() {
@@ -69,7 +69,7 @@ class Shop extends Component {
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
-                        badgeText={this.props.myCart.length}
+                        // badgeText={this.props.myCart.length}
                     >
                         {<Cart />}
                     </TabNavigator.Item>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity, Alert
+    View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity, Alert, AsyncStorage
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ class ProductDetail extends Component {
         const { params } = this.props.navigation.state;
         this.props.dispatch({ type: 'ADD_CART', newItem: params });
         const { myCart } = this.props;
-        saveCart(myCart);
+        AsyncStorage.setItem('@cart', JSON.stringify(myCart));
     }
     render() {
         const {

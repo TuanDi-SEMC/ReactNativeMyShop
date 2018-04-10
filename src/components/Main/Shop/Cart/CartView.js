@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import {
     View, Text, TouchableOpacity, ScrollView,
-    Dimensions, StyleSheet, Image
+    Dimensions, StyleSheet, Image, AsyncStorage
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { getCart } from '../../../../networking/GetCart';
-
-import sp1 from '../../../../media/temp/sp1.jpeg';
 
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -25,7 +22,14 @@ class CartView extends Component {
     }
 
     componentWillMount() {
-        getCart().then(cartArray => this.setState({ cartArray }));
+        AsyncStorage.getItem('@cart').then(value => {
+            if (value == null) {
+                this.props.dispatch({ type: 'SET_CART', newCart: [] });
+            } else {
+                const data = JSON.parse(value);
+                this.props.dispatch({ type: 'SET_CART', data });
+            }
+        });
     }
 
     render() {
@@ -33,10 +37,9 @@ class CartView extends Component {
             product, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct,
             txtShowDetail, showDetailContainer } = styles;
-        const cartArray = this.state.cartArray;
         return (
             <View style={wrapper}>
-                <Text>{JSON.stringify(this.state)}</Text>
+                <Text>{JSON.stringify(this.props.myCart)}</Text>
                 {/* <ScrollView style={main}>
                     {cartArray.map(e => (
                         <View style={product} key={e}>
