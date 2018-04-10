@@ -41,6 +41,10 @@ class Shop extends Component {
         });
     }
 
+    componentWillMount() {
+        
+    }
+
     render() {
         const { selectedTab } = this.state;
         const { icon, selectedIcon } = styles;

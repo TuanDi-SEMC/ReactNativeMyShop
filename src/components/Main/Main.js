@@ -1,17 +1,46 @@
 import React, { Component } from 'react';
-// import { View, Text, Button } from 'react-native';
+import { Alert, AsyncStorage } from 'react-native';
 import Drawer from 'react-native-drawer';
 import Menu from '../Main/Menu.js';
 import Shop from '../Main/Shop/Shop';
+import { isLogged } from '../../offline/DataOffline';
+
+import { getCart } from '../../networking/GetCart';
+import { connect } from 'react-redux';
 
 //https://github.com/root-two/react-native-drawer
 
-export default class Main extends Component {
+class Main extends Component {
     //Hide defaul navigation bar
     static navigationOptions = { header: null }
-    componentDidMount() {
-        this.drawer.open();
+
+    constructor(props) {
+        super(props);
+        this.state = { cartArray: [] };
     }
+
+    componentWillMount() {
+        //get cart from offline
+        getCart().then(cart => {
+            this.props.dispatch({ type: 'SET_CART', newCart: cart });
+        });
+
+        // let rawData = {
+        //     isLogged: true,
+        // };
+        AsyncStorage.getItem('@logged').then(value => {
+            if (value == null) {
+                this.props.dispatch({ type: 'SET_LOGGED', isLogged: false });
+                Alert.alert(JSON.stringify(false));
+            } else {
+                const data = JSON.parse(value);
+                const logged = data.isLogged;
+                this.props.dispatch({ type: 'SET_LOGGED', logged });
+                Alert.alert(JSON.stringify(logged));                
+            }
+        });
+    }
+
     closeControlPanel = () => {
         this.drawer.close();
     };
@@ -49,3 +78,6 @@ export default class Main extends Component {
         );
     }
 }
+
+
+export default connect()(Main);

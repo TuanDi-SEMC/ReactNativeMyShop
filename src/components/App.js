@@ -38,10 +38,25 @@ const RootStack = StackNavigator(
 
 const defaultState = {
   cart: [],
+  isLogged: false,
 };
 
 const reducer = (state = defaultState, action) => {
-  return state;
+  switch (action.type) {
+    case 'ADD_CART': return {
+      ...state,
+      cart: [...state.cart, action.newItem]
+    };
+    case 'SET_CART': return {
+      cart: action.newCart,
+      isLogged: state.isLogged,
+    };
+    case 'SET_LOGGED': return {
+      cart: state.cart,
+      isLogged: action.isLogged,
+    };
+    default: return state;
+  }
 };
 
 const store = createStore(reducer);

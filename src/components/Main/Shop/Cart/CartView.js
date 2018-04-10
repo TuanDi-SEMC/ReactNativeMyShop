@@ -24,7 +24,7 @@ class CartView extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         getCart().then(cartArray => this.setState({ cartArray }));
     }
 
@@ -36,7 +36,8 @@ class CartView extends Component {
         const cartArray = this.state.cartArray;
         return (
             <View style={wrapper}>
-                <ScrollView style={main}>
+                <Text>{JSON.stringify(this.state)}</Text>
+                {/* <ScrollView style={main}>
                     {cartArray.map(e => (
                         <View style={product} key={e}>
                             <Image source={sp1} style={productImage} />
@@ -67,7 +68,7 @@ class CartView extends Component {
                             </View>
                         </View>
                     ))}
-                </ScrollView>
+                </ScrollView> */}
                 <TouchableOpacity style={checkoutButton}>
                     <Text style={checkoutTitle}>TOTAL {this.state.total}$ CHECKOUT NOW</Text>
                 </TouchableOpacity>

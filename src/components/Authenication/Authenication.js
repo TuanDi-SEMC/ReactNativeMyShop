@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, TextInput, ToastAndroid, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, TextInput, ToastAndroid, AsyncStorage, Alert } from 'react-native';
+import { connect } from 'react-redux';
+
 import icLogo from '../../media/appIcon/ic_logo.png';
 import icBack from '../../media/appIcon/back_white.png';
+
+import { setIsLogged } from '../../offline/DataOffline';
 
 import { signIn } from '../../networking/Server';
 
 const { width, height } = Dimensions.get('window');
 const buttonWidth = (width / 2) - 10;
 
-export default class Authenication extends Component {
+class Authenication extends Component {
 
     static navigationOptions = { header: null }
 
@@ -26,18 +30,19 @@ export default class Authenication extends Component {
     }
 
     login = () => {
-        let email = this.state.email;
-        if (email == null) { ToastAndroid.show('Chưa nhập email', ToastAndroid.SHORT); }
-        let password = this.state.password;
-        if (password == null) { ToastAndroid.show('Chưa nhập password', ToastAndroid.SHORT); }
+        // let email = this.state.email;
+        // if (email == null) { ToastAndroid.show('Chưa nhập email', ToastAndroid.SHORT); }
+        // let password = this.state.password;
+        // if (password == null) { ToastAndroid.show('Chưa nhập password', ToastAndroid.SHORT); }
 
-        signIn(email, password)
-            .then((data) => {
-                Alert.alert(JSON.stringify(data));
-            }).catch((error) => {
-                Alert.alert(error.toString());
-            });
+        this.props.dispatch({ type: 'SET_LOGGED', isLogged: true });
+        const rawData = {
+            isLogged: true,
+        };
+        AsyncStorage.setItem('@logged', JSON.stringify(rawData));
     }
+
+
     signIn() {
         this.setState({ isSignIn: true });
     }
@@ -122,6 +127,7 @@ export default class Authenication extends Component {
     }
 }
 
+export default connect()(Authenication);
 
 const styles = StyleSheet.create({
     textInput: {

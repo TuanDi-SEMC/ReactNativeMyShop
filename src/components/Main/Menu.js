@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions, AsyncStorage, Alert } from 'react-native';
+import { connect } from 'react-redux';
 
 import avatar from '../../media/temp/profile.png';
 
@@ -7,11 +8,6 @@ const { width } = Dimensions.get('window');
 const buttonWidth = width - 20;
 
 class Menu extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { isLogedIn: false };
-    }
 
     goToAuthenication() {
         const { navigate } = this.props.navigation;
@@ -26,6 +22,13 @@ class Menu extends Component {
     goToOrderHistory() {
         const { navigate } = this.props.navigation;
         navigate('OrderHistory');
+    }
+    logout() {
+        this.props.dispatch({ type: 'SET_LOGGED', isLogged: false });
+        const rawData = {
+            isLogged: false,
+        };
+        AsyncStorage.setItem('@logged', JSON.stringify(rawData));
     }
 
     render() {
@@ -46,12 +49,12 @@ class Menu extends Component {
                     <TouchableOpacity onPress={this.goToChangeInfo.bind(this)} style={container}>
                         <Text style={buttonSignInStyle}>Change Info</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity onPress={this.goToAuthenication.bind(this)} style={container}>
+                    <TouchableOpacity onPress={this.logout.bind(this)} style={container}>
                         <Text style={buttonSignInStyle}>Sign out</Text>
                     </TouchableOpacity >
                 </View>
             </View>);
-        const MainJSX = this.state.isLogedIn ? loginJSX : logoutJSX;
+        const MainJSX = this.props.isLogged ? loginJSX : logoutJSX;
         return (
             <View style={wrapper}>
                 <Image source={avatar} style={imageStyle} />
@@ -60,8 +63,10 @@ class Menu extends Component {
         );
     }
 }
-
-export default Menu;
+function mapStateToProps(state) {
+    return { isLogged: state.isLogged };
+}
+export default connect(mapStateToProps)(Menu);
 
 const styles = StyleSheet.create({
     wrapper: {

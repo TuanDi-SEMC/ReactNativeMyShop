@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import {
-    View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
+    View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity, Alert
 } from 'react-native';
+
+import { connect } from 'react-redux';
+import { saveCart } from '../../../../networking/SaveCart';
+import { getCart } from '../../../../networking/GetCart';
 
 const back = require('../../../../media/appIcon/back.png');
 const cart = require('../../../../media/appIcon/cartfull.png');
 
 const url = 'http://192.168.50.111/api/images/product/';
 
-export default class ProductDetail extends Component {
+class ProductDetail extends Component {
     static navigationOptions = { header: null }
     goBackMain() {
         const { navigation } = this.props;
         navigation.goBack();
     }
     addThisProductToCart() {
-        const { product } = this.props;
-        global.addProductToCart(product);
+        getCart().then(res => { Alert.alert(JSON.stringify(res)); });
+        const { params } = this.props.navigation.state;
+        this.props.dispatch({ type: 'ADD_CART', newItem: params });
+        const { myCart } = this.props;
+        saveCart(myCart);
     }
     render() {
         const {
@@ -31,13 +38,14 @@ export default class ProductDetail extends Component {
             <View style={wrapper}>
                 <View style={cardStyle}>
                     <View style={header}>
-                        <TouchableOpacity onPress={this.goBackMain.bind(this)}>  
+                        <TouchableOpacity onPress={this.goBackMain.bind(this)}>
                             <Image style={backStyle} source={back} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.addThisProductToCart.bind(this)}>
                             <Image style={cartStyle} source={cart} />
                         </TouchableOpacity>
                     </View>
+                    <Text>{JSON.stringify(this.props.myCart)}</Text>
                     <View style={imageContainer}>
                         <ScrollView style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
                             <Image source={{ uri: `${url}${images[0]}` }} style={productImageStyle} />
@@ -68,6 +76,11 @@ export default class ProductDetail extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return { myCart: state.cart };
+}
+export default connect(mapStateToProps)(ProductDetail);
 
 const { width } = Dimensions.get('window');
 const swiperWidth = (width / 1.8) - 30;
