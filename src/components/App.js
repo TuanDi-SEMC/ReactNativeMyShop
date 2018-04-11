@@ -37,10 +37,9 @@ const RootStack = StackNavigator(
 );
 
 const defaultState = {
-  cart: [],
+  cart: [1],
   isLogged: false,
   product: null,
-  search: null,
   selectedTab: 'home',
   searchResult: [],
 };
@@ -50,14 +49,6 @@ const reducer = (state = defaultState, action) => {
     case 'CHANGE_TAB': return {
       ...state,
       selectedTab: action.selectedTab,
-    };
-    case 'ADD_CART': return {
-      ...state,
-      arr: [...state.arr, action.product]
-    };
-    case 'SEARCH': return {
-      ...state,
-      search: action.search,
     };
     case 'SET_CART': return {
       ...state,

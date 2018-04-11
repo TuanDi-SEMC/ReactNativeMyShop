@@ -15,7 +15,7 @@ class SearchView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { };
+        this.state = {};
     }
 
     goToProductDetail(item) {
@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    return { searchResult: state.searchResult };
+    return { searchResult: state.searchResult, cart: state.cart };
 }
 export default connect(mapStateToProps)(SearchView);

@@ -20,10 +20,6 @@ class Main extends Component {
     }
 
     componentWillMount() {
-        //get cart from offline
-        getCart().then(cart => {
-            this.props.dispatch({ type: 'SET_CART', newCart: cart });
-        });
         // let rawData = {
         //     isLogged: true,
         // };

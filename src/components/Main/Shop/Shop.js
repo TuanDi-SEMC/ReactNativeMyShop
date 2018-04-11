@@ -66,7 +66,7 @@ class Shop extends Component {
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
-                    // badgeText={this.props.myCart.length}
+                        badgeText={this.props.cart.length}
                     >
                         {<Cart />}
                     </TabNavigator.Item>
@@ -96,7 +96,7 @@ class Shop extends Component {
     }
 }
 function mapStateToProps(state) {
-    return { selectedTab: state.selectedTab };
+    return { selectedTab: state.selectedTab, cart: state.cart };
 }
 export default connect(mapStateToProps)(Shop);
 

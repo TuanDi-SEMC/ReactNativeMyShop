@@ -26,13 +26,11 @@ class ProductDetail extends Component {
     }
     addThisProductToCart() {
         const mProduct = this.props.product;
-        try {
-            this.props.dispatch({ type: 'ADD_CART', product: mProduct });
-        } catch (error) {
-            Alert.alert(JSON.stringify(error));
-        }
-        const mCart = this.props.cart;
-        Alert.alert(JSON.stringify(mCart));
+        const { cart } = this.props;
+        cart.push(mProduct);
+        const newCart = cart;
+        this.props.dispatch({ type: 'SET_CART', cart: newCart });
+        Alert.alert(''.concat(this.props.cart.length));
     }
     render() {
         const {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    View, Text, TouchableOpacity, ScrollView,
+    View, Text, TouchableOpacity, FlatList,
     Dimensions, StyleSheet, Image, AsyncStorage
 } from 'react-native';
 
@@ -17,19 +17,12 @@ class CartView extends Component {
         super(props);
         this.state = {
             total: 0,
-            cartArray: [],
+            cart: this.props.cart,
         };
     }
 
     componentWillMount() {
-        AsyncStorage.getItem('@cart').then(value => {
-            if (value == null) {
-                this.props.dispatch({ type: 'SET_CART', newCart: [] });
-            } else {
-                const data = JSON.parse(value);
-                this.props.dispatch({ type: 'SET_CART', data });
-            }
-        });
+
     }
 
     render() {
@@ -37,41 +30,44 @@ class CartView extends Component {
             product, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct,
             txtShowDetail, showDetailContainer } = styles;
+        const { cart } = this.state;
         return (
             <View style={wrapper}>
-                <Text>{JSON.stringify(this.props.myCart)}</Text>
-                {/* <ScrollView style={main}>
-                    {cartArray.map(e => (
-                        <View style={product} key={e}>
-                            <Image source={sp1} style={productImage} />
-                            <View style={[mainRight]}>
-                                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={txtName}>123</Text>
-                                    <TouchableOpacity>
-                                        <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View>
-                                    <Text style={process.price}>{100}$</Text>
-                                </View>
-                                <View style={productController}>
-                                    <View style={numberOfProduct}>
+                <Text>{JSON.stringify(cart)}</Text>
+                <FlatList
+                    data={cart}
+                    renderItem={
+                        ({ item }) =>
+                            <View style={product}>
+                                <Image source={null} style={productImage} />
+                                <View style={[mainRight]}>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                                        <Text style={txtName}>123</Text>
                                         <TouchableOpacity>
-                                            <Text>+</Text>
-                                        </TouchableOpacity>
-                                        <Text>{3}</Text>
-                                        <TouchableOpacity>
-                                            <Text>-</Text>
+                                            <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity style={showDetailContainer}>
-                                        <Text style={txtShowDetail}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
+                                    <View>
+                                        <Text style={process.price}>{100}$</Text>
+                                    </View>
+                                    <View style={productController}>
+                                        <View style={numberOfProduct}>
+                                            <TouchableOpacity>
+                                                <Text>+</Text>
+                                            </TouchableOpacity>
+                                            <Text>{3}</Text>
+                                            <TouchableOpacity>
+                                                <Text>-</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <TouchableOpacity style={showDetailContainer}>
+                                            <Text style={txtShowDetail}>SHOW DETAILS</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    ))}
-                </ScrollView> */}
+                    }
+                />
                 <TouchableOpacity style={checkoutButton}>
                     <Text style={checkoutTitle}>TOTAL {this.state.total}$ CHECKOUT NOW</Text>
                 </TouchableOpacity>
@@ -162,7 +158,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    return { myCart: state.cart };
+    return { cart: state.cart };
 }
 
 export default connect(mapStateToProps)(CartView);

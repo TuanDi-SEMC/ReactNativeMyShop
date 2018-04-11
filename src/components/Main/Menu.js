@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text, Dimensions, AsyncStorage, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
+import { isLogged } from '../../offline/DataOffline';
+
 import avatar from '../../media/temp/profile.png';
 
 const { width } = Dimensions.get('window');
 const buttonWidth = width - 20;
 
 class Menu extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn: false,
+        };
+    }
 
     goToAuthenication() {
         const { navigate } = this.props.navigation;
@@ -30,7 +39,14 @@ class Menu extends Component {
         };
         AsyncStorage.setItem('@logged', JSON.stringify(rawData));
     }
-
+    componentDidMount() {
+        isLogged().then(data => {
+            this.setState({
+                isLoggedIn: data,
+            });
+            Alert.alert(JSON.stringify(data));
+        });
+    }
     render() {
         const { wrapper, imageStyle, buttonStyle, container, buttonSignInStyle } = styles;
         const logoutJSX = (
@@ -54,7 +70,7 @@ class Menu extends Component {
                     </TouchableOpacity >
                 </View>
             </View>);
-        const MainJSX = this.props.isLogged ? loginJSX : logoutJSX;
+        const MainJSX = this.state.isLoggedIn ? loginJSX : logoutJSX;
         return (
             <View style={wrapper}>
                 <Image source={avatar} style={imageStyle} />
