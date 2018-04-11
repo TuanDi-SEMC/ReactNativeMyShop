@@ -39,21 +39,41 @@ const RootStack = StackNavigator(
 const defaultState = {
   cart: [],
   isLogged: false,
+  product: null,
+  search: null,
+  selectedTab: 'home',
+  searchResult: [],
 };
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
+    case 'CHANGE_TAB': return {
+      ...state,
+      selectedTab: action.selectedTab,
+    };
     case 'ADD_CART': return {
       ...state,
-      cart: [...state.cart, action.newItem]
+      arr: [...state.arr, action.product]
+    };
+    case 'SEARCH': return {
+      ...state,
+      search: action.search,
     };
     case 'SET_CART': return {
-      cart: action.newCart,
-      isLogged: state.isLogged,
+      ...state,
+      cart: action.cart,
     };
     case 'SET_LOGGED': return {
-      cart: state.cart,
+      ...state,
       isLogged: action.isLogged,
+    };
+    case 'SET_PRODUCT': return {
+      ...state,
+      product: action.newProduct,
+    };
+    case 'SET_SEARCH_RESULT': return {
+      ...state,
+      searchResult: action.searchResult,
     };
     default: return state;
   }

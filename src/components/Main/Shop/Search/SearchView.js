@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet, Text, TouchableOpacity, ListView, View, Image, Dimensions, Alert, FlatList
 } from 'react-native';
-
-import { searchProduct } from '../../../../networking/Server';
+import { connect } from 'react-redux';
 
 const url = 'http://192.168.50.111/api/images/product/';
 
@@ -16,20 +15,13 @@ class SearchView extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { listProduct: [] };
-    }
-
-    componentDidMount() {
-        searchProduct('floral').then((data) => {
-            this.setState({ listProduct: data });
-        }).catch((error) => {
-            Alert.alert(error.toString());
-        });
+        this.state = { };
     }
 
     goToProductDetail(item) {
         const { navigate } = this.props.navigation;
-        navigate('ProductDetail', item);
+        this.props.dispatch({ type: 'SET_PRODUCT', newProduct: item });
+        navigate('ProductDetail');
     }
 
     render() {
@@ -38,7 +30,7 @@ class SearchView extends Component {
         return (
             <View style={wrapper}>
                 <FlatList
-                    data={this.state.listProduct}
+                    data={this.props.searchResult}
                     renderItem={
                         ({ item }) =>
                             <TouchableOpacity onPress={this.goToProductDetail.bind(this, item)}>
@@ -107,4 +99,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SearchView;
+function mapStateToProps(state) {
+    return { searchResult: state.searchResult };
+}
+export default connect(mapStateToProps)(SearchView);

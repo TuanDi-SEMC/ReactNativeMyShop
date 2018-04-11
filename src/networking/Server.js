@@ -10,7 +10,7 @@ async function getIndex() {
     } catch (error) {
         Alert.alert(
             'Kết nối thất bại',
-            'error',
+            JSON.stringify(error),
             [
                 { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
@@ -30,7 +30,7 @@ async function searchProduct(key) {
     } catch (error) {
         Alert.alert(
             'Kết nối thất bại',
-            'error',
+            'Vui lòng thử lại sau',
             [
                 { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
@@ -57,7 +57,7 @@ async function signIn(email, password) {
     } catch (error) {
         Alert.alert(error);
     }
-} 
+}
 
 export { signIn };
 

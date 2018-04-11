@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import {
-    View, Text, StyleSheet, Image, Dimensions, TouchableOpacity,
+    View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Alert,
     FlatList
 } from 'react-native';
+import { connect } from 'react-redux';
 
 const url = 'http://192.168.50.111/api/images/product/';
 
 class TopProduct extends Component {
     goToProductDetail(item) {
         const { navigate } = this.props.navigation;
-        navigate('ProductDetail', item);
+        this.props.dispatch({ type: 'SET_PRODUCT', newProduct: item });
+        navigate('ProductDetail');
     }
 
     render() {
@@ -37,7 +39,8 @@ class TopProduct extends Component {
         );
     }
 }
-export default TopProduct;
+
+export default connect()(TopProduct);
 
 const { width } = Dimensions.get('window');
 const widthImage = (width - 60) / 2;

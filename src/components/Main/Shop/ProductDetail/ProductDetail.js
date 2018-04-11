@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {
     View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity, Alert, AsyncStorage
 } from 'react-native';
-
 import { connect } from 'react-redux';
+
 import { saveCart } from '../../../../networking/SaveCart';
 import { getCart } from '../../../../networking/GetCart';
 
@@ -14,16 +14,25 @@ const url = 'http://192.168.50.111/api/images/product/';
 
 class ProductDetail extends Component {
     static navigationOptions = { header: null }
+    constructor(props) {
+        super(props);
+        this.state = {
+            cart: [],
+        };
+    }
     goBackMain() {
         const { navigation } = this.props;
         navigation.goBack();
     }
     addThisProductToCart() {
-        getCart().then(res => { Alert.alert(JSON.stringify(res)); });
-        const { params } = this.props.navigation.state;
-        this.props.dispatch({ type: 'ADD_CART', newItem: params });
-        const { myCart } = this.props;
-        AsyncStorage.setItem('@cart', JSON.stringify(myCart));
+        const mProduct = this.props.product;
+        try {
+            this.props.dispatch({ type: 'ADD_CART', product: mProduct });
+        } catch (error) {
+            Alert.alert(JSON.stringify(error));
+        }
+        const mCart = this.props.cart;
+        Alert.alert(JSON.stringify(mCart));
     }
     render() {
         const {
@@ -33,7 +42,7 @@ class ProductDetail extends Component {
             textSmoke, textHighlight, textMain, titleContainer,
             descContainer, productImageStyle, descStyle, txtMaterial, txtColor
         } = styles;
-        const { name, price, color, material, description, images } = this.props.navigation.state.params;
+        const { name, price, color, material, description, images } = this.props.product;
         return (
             <View style={wrapper}>
                 <View style={cardStyle}>
@@ -45,7 +54,6 @@ class ProductDetail extends Component {
                             <Image style={cartStyle} source={cart} />
                         </TouchableOpacity>
                     </View>
-                    <Text>{JSON.stringify(this.props.myCart)}</Text>
                     <View style={imageContainer}>
                         <ScrollView style={{ flexDirection: 'row', padding: 10, height: swiperHeight }} horizontal >
                             <Image source={{ uri: `${url}${images[0]}` }} style={productImageStyle} />
@@ -78,7 +86,7 @@ class ProductDetail extends Component {
 }
 
 function mapStateToProps(state) {
-    return { myCart: state.cart };
+    return { cart: state.cart, product: state.product };
 }
 export default connect(mapStateToProps)(ProductDetail);
 

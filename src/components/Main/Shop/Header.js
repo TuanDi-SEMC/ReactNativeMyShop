@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {
     View, Text, TouchableOpacity, Dimensions, Image, TextInput, StyleSheet, Alert
 } from 'react-native';
+import { connect } from 'react-redux';
+
+import { searchProduct } from '../../../networking/Server';
 
 import icLogo from '../../../media/appIcon/ic_logo.png';
 import icMenu from '../../../media/appIcon/ic_menu.png';
@@ -19,11 +22,16 @@ class Header extends Component {
 
     onSearch() {
         const { txtSearch } = this.state;
-        // this.setState({ txtSearch: '' });
-        // search(txtSearch)
-        //     .then(arrProduct => global.setArraySearch(arrProduct))
-        //     .catch(err => console.log(err));
-        Alert.alert(txtSearch);
+        if (txtSearch != null) {
+            searchProduct(txtSearch).then((data) => {
+                this.props.dispatch({ type: 'SET_SEARCH_RESULT', searchResult: data });
+                this.props.dispatch({ type: 'CHANGE_TAB', selectedTab: 'search' });
+            }).catch((error) => {
+                Alert.alert(error.toString());
+                this.props.dispatch({ type: 'SET_SEARCH_RESULT', searchResult: [] });
+                this.props.dispatch({ type: 'CHANGE_TAB', selectedTab: 'search' });
+            });
+        }
     }
     render() {
         const { wrapper, row1, textInput, icon, title } = styles;
@@ -48,7 +56,8 @@ class Header extends Component {
         );
     }
 }
-export default Header;
+
+export default connect()(Header);
 
 const styles = StyleSheet.create({
     wrapper: {

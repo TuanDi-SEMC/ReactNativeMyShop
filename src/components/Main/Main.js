@@ -16,7 +16,7 @@ class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { cartArray: [] };
+        this.state = {};
     }
 
     componentWillMount() {
@@ -24,7 +24,6 @@ class Main extends Component {
         getCart().then(cart => {
             this.props.dispatch({ type: 'SET_CART', newCart: cart });
         });
-
         // let rawData = {
         //     isLogged: true,
         // };
@@ -36,7 +35,7 @@ class Main extends Component {
                 const data = JSON.parse(value);
                 const logged = data.isLogged;
                 this.props.dispatch({ type: 'SET_LOGGED', logged });
-                Alert.alert(JSON.stringify(logged));                
+                Alert.alert(JSON.stringify(logged));
             }
         });
     }

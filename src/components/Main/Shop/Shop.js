@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Text } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import { connect } from 'react-redux';
 import Cart from './Cart/Cart';
@@ -41,21 +41,18 @@ class Shop extends Component {
         });
     }
 
-    componentWillMount() {
-
-    }
-
     render() {
-        const { selectedTab } = this.state;
+        const { selectedTab } = this.props;
         const { icon, selectedIcon } = styles;
         return (
             <View style={{ flex: 1, }}>
                 <Header onOpen={this.openMenu.bind(this)} />
+                <Text>{this.props.myCart}</Text>
                 <TabNavigator>
                     <TabNavigator.Item
                         selected={selectedTab === 'home'}
                         title="Home"
-                        onPress={() => this.setState({ selectedTab: 'home' })}
+                        onPress={() => this.props.dispatch({ type: 'CHANGE_TAB', selectedTab: 'home' })}
                         renderIcon={() => <Image source={homeIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={homeIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
@@ -65,18 +62,18 @@ class Shop extends Component {
                     <TabNavigator.Item
                         selected={selectedTab === 'cart'}
                         title="Cart"
-                        onPress={() => this.setState({ selectedTab: 'cart' })}
+                        onPress={() => this.props.dispatch({ type: 'CHANGE_TAB', selectedTab: 'cart' })}
                         renderIcon={() => <Image source={cartIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={cartIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
-                        // badgeText={this.props.myCart.length}
+                    // badgeText={this.props.myCart.length}
                     >
                         {<Cart />}
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'search'}
                         title="Search"
-                        onPress={() => this.setState({ selectedTab: 'search' })}
+                        onPress={() => this.props.dispatch({ type: 'CHANGE_TAB', selectedTab: 'search' })}
                         renderIcon={() => <Image source={searchIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={searchIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
@@ -86,7 +83,7 @@ class Shop extends Component {
                     <TabNavigator.Item
                         selected={selectedTab === 'contact'}
                         title="Contact"
-                        onPress={() => this.setState({ selectedTab: 'contact' })}
+                        onPress={() => this.props.dispatch({ type: 'CHANGE_TAB', selectedTab: 'contact' })}
                         renderIcon={() => <Image source={contactIcon} style={icon} />}
                         renderSelectedIcon={() => <Image source={contactIconS} style={selectedIcon} />}
                         selectedTitleStyle={{ color: '#286728' }}
@@ -94,12 +91,12 @@ class Shop extends Component {
                         {<Contact />}
                     </TabNavigator.Item>
                 </TabNavigator>
-            </View>
+            </View >
         );
     }
 }
 function mapStateToProps(state) {
-    return { myCart: state.cart };
+    return { selectedTab: state.selectedTab };
 }
 export default connect(mapStateToProps)(Shop);
 
